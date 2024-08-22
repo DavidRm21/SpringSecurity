@@ -2,6 +2,7 @@ package com.cris.products.controller;
 
 import com.cris.products.clients.AuthService;
 import com.cris.products.model.dto.TokenResponse;
+import com.cris.products.token.JwtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,8 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -26,6 +29,7 @@ public class TokenController {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final AuthService authService;
+    private final JwtService jwtUtil;
 
     // http://localhost:8080/realms/MyRealmKC/protocol/openid-connect/token
     // grant_type:client_credentials
@@ -74,5 +78,18 @@ public class TokenController {
                 .build();
 
         return ResponseEntity.ok(objectMapper.writeValueAsString(token));
+    }
+
+    @GetMapping("/generateToken")
+    public String generateToken() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("sub", "http://127.0.0.1/servicio");
+        String token = jwtUtil.getToken();
+        return token;
+    }
+
+    @GetMapping("/validateToken")
+    public void validateToken(@RequestParam("token") String token) {
+//        return jwtUtil.validateToken(token);
     }
 }

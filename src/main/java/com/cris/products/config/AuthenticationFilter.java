@@ -24,17 +24,19 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        JsonNode jsonNode = authService.validateToken(request.getHeader("client_id"), request.getHeader("client_secret"), request.getHeader("token"));
-        if (request.getHeader("token") != null){
-
-            if(jsonNode.get("active").asBoolean()){
-                log.info("Activo -> {}", jsonNode);
-                filterChain.doFilter(request, response);
-            } else {
-                log.info("No valido: {} ", jsonNode);
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, jsonNode.asText());
-            }
-            filterChain.doFilter(request, response);
-        }
+//        JsonNode jsonNode = authService.validateToken(request.getHeader("client_id"), request.getHeader("client_secret"), request.getHeader("token"));
+//        if (request.getHeader("token") != null){
+//
+//            if(jsonNode.get("active").asBoolean()){
+//                log.info("Activo -> {}", jsonNode);
+//                filterChain.doFilter(request, response);
+//            } else {
+//                log.info("No valido: {} ", jsonNode);
+//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, jsonNode.asText());
+//            }
+//            filterChain.doFilter(request, response);
+//        }
+        log.info("Filtor ejecutado");
+        filterChain.doFilter(request, response);
     }
 }

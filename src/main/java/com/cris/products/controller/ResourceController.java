@@ -18,8 +18,10 @@ import java.util.Map;
 public class ResourceController {
 
     @GetMapping("/name")
-    public ResponseEntity<String> get(@RequestBody String metodo){
+    public ResponseEntity<String> get(@RequestBody String metodo) throws Exception {
         log.info("Logica del metodo");
+//        SeguridadES256 es256 = new SeguridadES256();
+
         log.info("Logica del metodo");
         log.info("Logica del metodo");
         log.info("Fin {}", metodo);
